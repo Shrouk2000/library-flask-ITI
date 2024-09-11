@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Details{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Book Details</h1>
+    <div class="container d-flex justify-content-center mt-4">
+        <div class="card" style="width: 18rem;">
+            {% if book.cover_photo %}
+                <img src="{{ url_for('static', filename='uploads/' ~ book.cover_photo) }}" class="card-img-top" alt="Cover Photo">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text"><strong>Number of Pages:</strong> {{ book.number_of_pages }}</p>
+                <p class="card-text"><strong>Description:</strong> {{ book.description }}</p>
+                <a href="{{ url_for('main.edit_book', id=book.id) }}" class="btn btn-secondary">Edit</a>
+                <form action="{{ url_for('main.delete_book', id=book.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">Back to List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
